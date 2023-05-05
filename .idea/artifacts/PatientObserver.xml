@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="PatientObserver">
+    <output-path>$PROJECT_DIR$/out/artifacts/PatientObserver</output-path>
+    <root id="root">
+      <element id="library" level="project" name="postgresql-42.3.1" />
+      <element id="library" level="project" name="log4j-core-2.14.1" />
+      <element id="library" level="project" name="log4j-api-2.14.1" />
+      <element id="library" level="project" name="J2EE 1.4-J2EE 1.4" />
+      <element id="archive" name="PatientObserver.jar">
+        <element id="module-output" name="PatientObserver" />
+      </element>
+    </root>
+  </artifact>
+</component>

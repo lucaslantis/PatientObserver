@@ -1,0 +1,53 @@
+@startuml
+class DataClasses.HealthProStats {
++ int[] heartRate
++ int[] bloodDias
++ int[] bloodSys
++ int[] O2Sat
++ int[] respRate
+}
+class DataClasses.EventData {
++ EventType eventType
++ HealthProViewData healthProViewData
++ PatientViewData patientViewData
++ UserDataShort userDataShort
++ UserDataTable userDataTable
++ Integer userID
+}
+class DataClasses.PatientViewData {
++ int heartRate
++ Pair bloodPressure
++ float steps
+}
+class DataClasses.UserDataShort {
++ String fName
++ String mName
++ String lName
++ UserType userType
++ boolean authorized
++ int userID
++ boolean getAuthorization()
++ UserType getUserType()
+}
+class DataClasses.Pair {
++ T1 x
++ T2 y
+}
+class DataClasses.UserDataTable {
++ String fName
++ String mName
++ String lName
++ UserDataShort.UserType userType
++ String address
++ String phoneNo
++ int userID
+}
+class DataClasses.HealthProViewData {
++ int heartRate
++ Pair bloodPressure
++ int o2Sat
++ int respiratoryRate
++ int userId
++ String timeStamp
+}
+@enduml

@@ -1,0 +1,41 @@
+CREATE SEQUENCE user_id_seq START WITH 100000000; -- replace 12345 with max above
+ALTER TABLE private.app_users ALTER COLUMN user_id SET DEFAULT nextval('user_id_seq');
+
+ALTER TABLE private.app_users
+   ADD CONSTRAINT check_user
+   CHECK (user_type = 'Patient' OR user_type = 'UserRegular' OR user_type = 'HealthPro');
+
+
+ CREATE TRIGGER add_user AFTER INSERT ON private.app_users
+ FOR EACH ROW
+  BEGIN
+    IF (private.appusers.user_type == 'HealthPro')
+    THEN
+    INSERT INTO private.health_pro_user
+        ;
+    END IF;
+  END$$
+ DELIMITER ;
+
+CREATE SEQUENCE health_pro_seq START WITH 1;
+ALTER TABLE private.health_pro_user ALTER COLUMN user_num SET DEFAULT nextval('health_pro_seq');
+
+CREATE TRIGGER add_health_user
+	AFTER INSERT ON private.app_users
+	FOR EACH ROW
+	EXECUTE PROCEDURE add_to_specific_table();
+
+CREATE OR REPLACE FUNCTION add_to_specific_table()
+  RETURNS TRIGGER
+  LANGUAGE PLPGSQL
+  AS
+$$
+BEGIN
+	IF NEW.user_type = 'HealthPro'THEN
+		 INSERT INTO private.health_pro_user (health_worker, user_id) VALUES (true, NEW.user_id);
+	END IF;
+	RETURN NEW;
+END;
+$$
+
+INSERT INTO private.app_users (first_name, middle_name, last_name, phone_no, address, user_type) VALUES ('Mamo', "Arada", "Kilo", "250", "4", "patient");
